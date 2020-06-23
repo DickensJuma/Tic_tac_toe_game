@@ -86,6 +86,12 @@ You can do it on [issues page](https://github.com/DickensJuma/tic_tac_toe_game/i
 - Twitter: [@juma_dickens](https://twitter.com/juma_dickens)
 - Linkedin: [dickens-juma](https://linkedin.com/in/dickens-juma)
 
+👤 **Arafat Akata**
+- Github: [@haraphat01](https://github.com/haraphat01)
+- Twitter: [@haraphat01](https://twitter.com/haraphat01)
+- Linkedin: [arafat-akata](https://www.linkedin.com/in/arafat-akata/)
+
+
 ## License
 
 - Creative Commons

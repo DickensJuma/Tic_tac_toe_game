@@ -36,8 +36,22 @@ def move(board_arr, arg,current_ player)
 
 end
 
-
+def count
+  result=0
+  board_arr.each do |n|
+    if n=="x" || n=="o"
+      result = result+1
+    end
+  end
+  result
+end
 def current_player
+if count(board_arr) ℅ 2==0
+  puts "x"
+elsif
+  puts "o"
+end
+end
 
 end
 def valid(arg)
@@ -47,7 +61,7 @@ def valid(arg)
     return false
 end
 def over(board_arr)
-  if full(board_arr) && !won(board_arr)
+  if full(board_arr) || won(board_arr) || draw(board_arr)
     return true
     puts "game over"
   end
@@ -55,11 +69,9 @@ def over(board_arr)
  end
 
   def board_full(board_arr)
-    if position-taken(board_arr,arg)|| !won
-(board_arr)
-return true
-puts "board if full play again"
-    end
+    board_arr.all? do |n|
+      n=="x" || n=="o"
+  end
   end
 
 def won
@@ -67,10 +79,15 @@ def won
 end
 
 def draw
+  if !won && full
+    return true
+  elsif
+    return false
 end
 
 def winner
-
+if won(board_arr)
+  return won(board[0])
 
 end
 

@@ -44,14 +44,24 @@ until input2.between?(0,9)
   puts " you did not choose correct move, ch oose again"                      
   input2=gets.chomp.to_i       
 end
+count=0
+loop do
+  until game_over
+    if won
+      puts "Congrats you won"
+    elsif draw
+      puts "its a draw"
+    end
+    count=+1
+    break if won || draw
+  end
+end
+
+
 
 
 
 # def move(board_arr, arg,current_ player)
-
-
-
-puts
 #   board[arg]=current_player
 #
 # end

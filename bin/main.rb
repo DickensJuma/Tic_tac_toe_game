@@ -32,45 +32,45 @@ def board
   puts  '7|8|9'
 end
 board
-# def move(board_arr, arg,current_ player)
-#   board[arg]=current_player
-#
-# end
-#
-# def count
-#   result=0
-#   board_arr.each do |n|
-#     if n=="x" || n=="o"
-#       result = result+1
-#     end
-#   end
-#   result
-# end
-# def current_player
-# if count(board_arr) % 2==0
-#   puts "x"
-# elsif
-#   puts "o"
-# end
-# end
-#
-# end
-# def valid(arg)
-#   if arg.between(1..9)
-#     return true
-#   else
-#     return false
-# end
-# def over(board_arr)
-#   if full(board_arr) || won(board_arr) || draw(board_arr)
-#     return true
-#     puts "game over"
-#   end
-#
-#  end
-#
-#   def board_full(board_arr)
-#     board_arr.all? do |n|
-#       n=="x" || n=="o"
-#   end
-#   end
+ def move(board_arr, arg,current_ player)
+   board[arg]=current_player
+
+ end
+
+ def count
+   result=0
+   board_arr.each do |n|
+     if n=="x" || n=="o"
+       result = result+1
+     end
+   end
+   result
+ end
+ def current_player
+ if count(board_arr) % 2==0
+   puts "x"
+ elsif
+   puts "o"
+ end
+ end
+
+ end
+ def valid(arg)
+   if arg.between(1..9)
+     return true
+   else
+     return false
+ end
+ def over(board_arr)
+   if full(board_arr) || won(board_arr) || draw(board_arr)
+     return true
+    puts "game over"
+   end
+
+  end
+
+   def board_full(board_arr)
+     board_arr.all? do |n|
+       n=="x" || n=="o"
+   end
+   end

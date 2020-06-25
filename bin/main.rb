@@ -16,13 +16,6 @@ elsif selection == 'o'
   puts "#{player1}, you are #{selection} for this game"
   puts "#{player2}, you are x for this game"
 end
-if selection == 'x'
-  puts "#{player1}, you are #{selection} for this game"
-  puts "#{player2}, you are o for this game"
-elsif selection == 'o'
-  puts "#{player1}, you are #{selection} for this game"
-  puts "#{player2}, you are x for this game"
-end
 def board
   puts
   puts '1|2|3'
@@ -32,7 +25,33 @@ def board
   puts  '7|8|9'
 end
 board
+puts "#{player1} its your turn to make a move"
+puts "Choose move between 0 to 9"
+input=gets.chomp.to_i
+
+until input.between?(0,9) 
+  puts " you did not choose correct move, choose again"
+  input=gets.chomp.to_i
+
+end
+
+puts "#{player2} its your turn to make a mo
+ve"                                    
+puts "Choose move between 0 to 9"         
+input2=gets.chomp.to_i
+
+until input2.between?(0,9)                 
+  puts " you did not choose correct move, ch oose again"                      
+  input2=gets.chomp.to_i       
+end
+
+
+
 # def move(board_arr, arg,current_ player)
+
+
+
+puts
 #   board[arg]=current_player
 #
 # end

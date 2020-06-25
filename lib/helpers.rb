@@ -12,9 +12,8 @@ def over(board)
 end
 
 def full(board) 
-  if position_taken(board,index) && !won(board)
-    return true
-  end
+board.all? do |n|
+  n=="x" || n=="o"
 end
 
 def draw 
@@ -32,6 +31,9 @@ end
 def won
 end
 
+def winner
+end
+
 def current_player
   if turn_count %2 ==0
     "x"
@@ -41,8 +43,17 @@ end
 end
 
 
-def turn
+def valid_move(index)
+  index.between?(0..9)
+end
 
+
+def turn(board)
+  result=0
+  board.each do |n|
+if n=="x" || n=="o"
+ result +=1
+  end
 end
 
 def turn_count

@@ -48,7 +48,8 @@ until input2.between?(0, 9)
   puts ' you did not choose correct move, ch oose again'
   input2 = gets.chomp.to_i
 end
-# game logic is showed below, whatever input from the players is cehcked whether it's a winning, draw, or lost move.
+# game logic is showed below, whatever input from the players is cehcked
+# whether it's a winning, draw, or lost move.
 count = 0
 loop do
   until game_over

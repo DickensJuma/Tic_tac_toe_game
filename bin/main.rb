@@ -46,8 +46,10 @@ end
 count=0
 loop do
   until game_over
-    if won
-      puts "Congrats you won"
+    turn
+    if won 
+      winner =="x" || winner=="o"
+      puts "Congrats you won #{winner}"
     elsif draw
       puts "its a draw"
     end

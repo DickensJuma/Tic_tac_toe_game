@@ -5,21 +5,15 @@ def position_taken(board, index)
   end
 end
 
-def over(board)
-  if full(board) && !won(board)
+def over?(board)
+  if full?(board) && !won?(board) 
     return true
   end
 end
 
-def full(board) 
+def full?(board) 
 board.all? do |n|
   n=="x" || n=="o"
-end
-
-def draw 
-  if !won && full
-    return true
-  end
 end
 
 
@@ -27,8 +21,9 @@ def move(board,index,player)
   board[index]=player
 end
 
-
+winning_combination=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]
 def won
+  board[index]== winning_combination
 end
 
 def winner

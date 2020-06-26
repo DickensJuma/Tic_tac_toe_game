@@ -40,7 +40,7 @@ def current_player
   elsif
     "o"
 end
-end
+
 
 
 def valid_move(index)

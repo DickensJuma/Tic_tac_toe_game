@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
-
+require_relative('../lib/board.rb')
+require_relative('../lib/helpers.rb')
+require_relative('../lib/logic.rb')
 
 puts ' Welcome to Tic Tac Toe'
 puts 'Please player one give us your name:'
@@ -19,48 +21,39 @@ elsif selection == 'o'
   puts "#{player2}, you are x for this game"
 end
 
-def board
-  puts
-  puts '1|2|3'
-  puts  '-----'
-  puts  '4|5|6'
-  puts  '-----'
-  puts  '7|8|9'
-end
 
-board
+new_game =Board.new
+new_game.display_board
+def play
+  i=0
+  game_on=false
+  loop do 
+    while game_on==true
 puts "#{player1} its your turn to make a move"
-puts 'Choose move between 0 to 9'
+puts 'Choose move between 1 to 9'
 input = gets.chomp.to_i
-
-until input.between?(0, 9)
+i +=1
+until valid_move?
   puts ' you did not choose correct move, choose again'
   input = gets.chomp.to_i
-
+  if input == position_taken
+  new_game.updated_board
+  logic
 end
-
-puts "#{player2} it's your turn to make a move"
-puts 'Choose move between 0 to 9'
-input2 = gets.chomp.to_i
-
-until input2.between?(0, 9)
-  puts ' you did not choose correct move, ch oose again'
-  input2 = gets.chomp.to_i
 end
-
-count = 0
-loop do
-  until game_over
-    turn
-    if won
-      winner == 'x' || winner == 'o'
-      puts "Congrats you won #{winner}"
-    elsif draw
-      puts 'its a draw'
     end
-    count = +1
-    break if won || draw
   end
 end
+
+
+def update(board)
+   play
+   if valid_move?(board, index)
+      move(board, index, current_player(board))
+      playboard)
+   end
+   display_board(board)
+end
+
 
 

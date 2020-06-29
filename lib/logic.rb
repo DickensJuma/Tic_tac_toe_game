@@ -7,6 +7,16 @@ def logic(board)
       puts "Congratulations #{winner(board)}!" 
    elsif draw?(board)
       puts "Game over" 
-   end 
+   end
+end
+
+
+
+def update(board)                       
+  play                                    
+  if valid_move?(board, index)
+    move(board, index, current_player)
+    display_board(board)                  
+  end
 end
 

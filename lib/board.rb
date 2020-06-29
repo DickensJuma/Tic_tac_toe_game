@@ -13,13 +13,15 @@ class Board
   puts " #{@board[6]} | #{@board[7]} | #{@board[8]}"
   end
 
-  def updated_board(current_player,move)
+  
+def updated_board(current_player,move)
+  x = ""
   i = 0
-  for i in @board
-  if @board[i] == move
-    @board[i] = current_player
-    current_player << @board
+  while x<3
+    for i in @board
+      if @board[i][x] == move
+        @board[i][x] = current_player
+      end
+    end
   end
-  end
-end
 end

@@ -27,6 +27,7 @@ def won
 end
 
 def winner
+  if 
 end
 
 def current_player

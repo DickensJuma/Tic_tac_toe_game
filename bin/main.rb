@@ -30,7 +30,7 @@ input = gets.chomp.to_i
 until input.between?(1, 9)
   puts ' you did not choose correct move, choose again'
   input = gets.chomp.to_i
-  new_game.updated_board
+  
 end
 
 
@@ -41,5 +41,5 @@ input2 = gets.chomp.to_i
 until input2.between?(1, 9)
   puts ' you did not choose correct move, ch oose again'
   input2 = gets.chomp.to_i
-  new_game.updated_board
+  
 end

@@ -30,7 +30,7 @@ def winner
 end
 
 def current_player
-  if turn_count %2 ==0
+  if turn_count/2 ==0
     "x"
   elsif
     "o"
@@ -54,10 +54,12 @@ end
 def turn_count
   count=0
   loop do 
-count +=1
-break if won || draw || over
+ count +=1
+  break 
+  if won || draw || over
   end
 end
-
-
-
+end
+end
+end
+end

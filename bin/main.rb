@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 require_relative('../lib/board.rb')
 require_relative('../lib/helpers.rb')
+require_relative('../lib/logic.rb')
 
 puts ' Welcome to Tic Tac Toe'
 puts 'Please player one give us your name:'
@@ -23,13 +24,19 @@ end
 
 new_game =Board.new
 new_game.display_board
+def play
+  i=0
+  game_on=false
+  loop do 
+    while game_on==true
 puts "#{player1} its your turn to make a move"
 puts 'Choose move between 1 to 9'
 input = gets.chomp.to_i
-
-until input.between?(1, 9)
+i +=1
+until valid_move?
   puts ' you did not choose correct move, choose again'
   input = gets.chomp.to_i
+<<<<<<< HEAD
   
 end
 
@@ -42,4 +49,26 @@ until input2.between?(1, 9)
   puts ' you did not choose correct move, ch oose again'
   input2 = gets.chomp.to_i
   
+=======
+  if input == position_taken
+  new_game.updated_board
+  logic
 end
+end
+    end
+  end
+end
+
+
+def update(board)
+   play
+   if valid_move?(board, index)
+      move(board, index, current_player(board))
+      playboard)
+   end
+   display_board(board)
+>>>>>>> 0f04fc5e654339e88740ec735fefca1d1bf4ee35
+end
+
+
+

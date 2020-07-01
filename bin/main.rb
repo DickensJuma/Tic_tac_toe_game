@@ -29,13 +29,14 @@ input1 = gets.chomp.to_i
 until input1.between?(1, 9)
  puts ' you did not choose the correct move, choose again'
 input1 = gets.chomp.to_i
-while input1 == valid_move
-  until game_over 
+while valid_move?(input1)
+  until game_over?
     play
-    if won 
+    if won? 
       "Congratulations, you are the winner, #{winner}"
-    elsif draw
+    elsif draw?
       "it's a draw game"
+    
     display_board
     end
   end

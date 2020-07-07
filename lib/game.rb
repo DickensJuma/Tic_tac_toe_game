@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# rubocop:disable Style/Documentation,Layout/LineLength, Layout/EmptyLineAfterMagicComment, Lint/MissingCopEnableDirective,Layout/LineLength
+# rubocop:disable Style/Documentation,Layout/LineLength, Layout/EmptyLineAfterMagicComment, Lint/MissingCopEnableDirective,Layout/LineLength, Lint/RedundantCopDisableDirective
 require_relative './board.rb'
 require_relative './message.rb'
 
@@ -42,4 +42,4 @@ class Game
     @board_instance.board = ['', 1, 2, 3, 4, 5, 6, 7, 8, 9]
   end
 end
-# rubocop:enable Style/Documentation, Layout/LineLength, Layout/EmptyLineAfterMagicComment, Lint/MissingCopEnableDirective, Layout/LineLength
+# rubocop:enable Style/Documentation, Layout/LineLength, Layout/EmptyLineAfterMagicComment, Lint/MissingCopEnableDirective, Layout/LineLength,Lint/RedundantCopDisableDirective

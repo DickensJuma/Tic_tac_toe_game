@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+# rubocop:disable Style/Documentation, Layout/DefEndAlignment,Lint/MissingCopEnableDirective, Layout/EmptyLineAfterMagicComment
+# rubocop:disable Metrics/AbcSize
 class Board
-
   attr_accessor :board
-  def initialize 
-    @board = [1,2,3,4,5,6,7,8,9]
+  def initialize
+    @board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
   end
 
   def display_board
-  "   #{@board[0]} | #{@board[1]} | #{@board[2]}
+    "   #{@board[0]} | #{@board[1]} | #{@board[2]}
    ----------
    #{@board[3]} | #{@board[4]} | #{@board[5]}
   ----------
@@ -16,11 +18,6 @@ class Board
   def update_board(marker, pos)
     @board[pos] = marker
   end
-
-
-  # def update_board(index,player)
-  #   @board[index]=player              
-  # end
 
   def win_comb
     [
@@ -35,17 +32,16 @@ class Board
     ]
   end
 
-  def position_taken?(index)                 
-    if board[index] == "X" || board[index]=="O"
-    return true
-    end                                           
+  def position_taken?(index)
+    true if board[index] == 'X' || board[index] == 'O'
   end
 
-   def in_range?(index)
-     index.between?(1, 9)                      
-   end
+  def in_range?(index)
+    index.between?(1, 9)
+  end
 
-   def valid_move?(index)
+  def valid_move?(index)
     in_range?(index) && !position_taken?(index)
-  end
-end 
+ end
+end
+# rubocop:enable Style/Documentation,Lint/MissingCopEnableDirective, Layout/DefEndAlignment,Layout/EmptyLineAfterMagicComment

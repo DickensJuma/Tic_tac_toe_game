@@ -11,21 +11,21 @@ puts '--------Welcome to Tic-Tac-Toe game--------'
 puts 'Please choose a name and favourite Symbol to use.'
 
 puts 'First player, please enter your name '
-player1 = gets.chomp.capitalize!
+player1 = gets.chomp.capitalize
 letter_one = ''
 until %w[X O].include?(letter_one)
   puts "#{player1}, please choose between X and O to play with."
-  letter_one = gets.chomp.upcase!
+  letter_one = gets.chomp.upcase
 end
 letter_two = letter_one == 'O' ? 'X' : 'O'
 player_one = Player.new(player1, letter_one)
 
 puts 'Second player\'s name'
-player2 = gets.chomp.capitalize!
-while [player1].include?(player2)
+player2 = gets.chomp.capitalize
+while player1 == player2
   puts '#The name {player1} already exists.'
   puts 'Second player\'s name'
-  player2 = gets.chomp.capitalize!
+  player2 = gets.chomp.capitalize
 end
 puts "#{player1}, you are #{letter_one}."
 puts "#{player2}, your are #{letter_two}."

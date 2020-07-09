@@ -53,9 +53,10 @@ The project specifications can be seen in [Odin Project](https://www.theodinproj
 
 ## Built
 - we created the project dir
-- creaded two folder lib and bin
+- creaded  folder lib, bin and images
 - we created main.rb inside the bin folder
-- we made the main.rb display" Hello world!" when you execute command bin/main.rb
+- we created the game logics on foulder lib 
+- you execute command bin/main.rb and the game start
 
 ## Rules
 - Two players game

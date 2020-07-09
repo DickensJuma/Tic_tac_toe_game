@@ -2,7 +2,7 @@
 
 ## About This Project
 
- > This is a mini game called Tic Tac Toe
+ > This is a mini game called Tic Tac Toe.
 
 - The aim of the project is to learn and apply object oriented programming concepts.
 The project specifications can be seen in [Odin Project](https://www.theodinproject.com/courses/ruby-programming/lessons/oop)

@@ -39,9 +39,7 @@ The project specifications can be seen in [Odin Project](https://www.theodinproj
 ## Built With
 
 - Ruby 2.6.5
-- VScode
-- Rubocop (Linter) with Stickler (CI Tool)
-- Git (with Gitflow),
+
 
 ## Live Demo
 
@@ -52,7 +50,7 @@ You can play the live demo using this link: [Run on Repl.it](https://repl.it/@ha
 ### Get a local copy with
 
 ```js
-git clone https://github.com/DickensJuma/Tic_tac_toe_game/pull/5
+git clone https://github.com/DickensJuma/Tic_tac_toe_game.git
 
 ```
 
@@ -90,10 +88,6 @@ Contributions, issues and feature requests are welcome!
 
 You can do it on [issues page](https://github.com/DickensJuma/Tic_tac_toe_game/issues).
 
-## Acknowledgments
-
-- [Odin Project](https://www.theodinproject.com/courses/ruby-programming/lessons/oop)
-- A special thanks for the code reviewers.
 ## Acknowledgments
 
 - [Odin Project](https://www.theodinproject.com/courses/ruby-programming/lessons/oop)

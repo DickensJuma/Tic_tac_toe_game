@@ -2,7 +2,7 @@
 
 ## About This Project
 
- > A quick classic mini game to play by command line.
+ > This is a mini game called Tic Tac Toe
 
 - The aim of the project is to learn and apply object oriented programming concepts.
 The project specifications can be seen in [Odin Project](https://www.theodinproject.com/courses/ruby-programming/lessons/oop)
@@ -11,6 +11,7 @@ The project specifications can be seen in [Odin Project](https://www.theodinproj
 
 - [About this Project](#about-this-project)
 - [Built With](#built-with)
+- [Live Demo](#live-demo)
 - [Quick Start](#quick-start)
 - [Dependencies](#dependencies)
 - [Contributing](#contributing)
@@ -18,24 +19,38 @@ The project specifications can be seen in [Odin Project](https://www.theodinproj
 - [Author](#author)
 - [License](#license)
 
-## Built
-- we created the project dir
-- creaded two folder lib and bin
-- we created main.rb inside the bin folder
-- we made the main.rb display" Hello world!" when you execute command bin/main.rb
+## Game rules
+
+- Two players game
+- Each player draw X or O alternately on board
+- The game ends when someone gets 3 marks in a row
+- The row can be vertical, horizontal or diagonal
+
+<ul>
+  <h3>Features</h3>
+  <li>Get a valid user input</li>
+  <li>Display board after each move</li>
+  <li>End game if someone wins</li>
+  <li>End game if board becomes full</li>
+</ul>
 
 ## Built With
 
 - Ruby 2.6.5
 - VScode
+- Rubocop (Linter) with Stickler (CI Tool)
 - Git (with Gitflow),
+
+## Live Demo
+
+You can play the live demo using this link: [Run on Repl.it](https://repl.it/@haraphat01/Tictactoegame#bin/main.rb)
 
 ## Quick Start
 
 ### Get a local copy with
 
 ```js
-git clone https://github.com/DickensJuma/tic_tac_toe_game
+git clone https://github.com/DickensJuma/Tic_tac_toe_game/pull/5
 
 ```
 
@@ -71,8 +86,12 @@ Ruby 2.5.5
 
 Contributions, issues and feature requests are welcome!
 
-You can do it on [issues page](https://github.com/DickensJuma/tic_tac_toe_game/issues).
+You can do it on [issues page](https://github.com/DickensJuma/Tic_tac_toe_game/issues).
 
+## Acknowledgments
+
+- [Odin Project](https://www.theodinproject.com/courses/ruby-programming/lessons/oop)
+- A special thanks for the code reviewers.
 ## Acknowledgments
 
 - [Odin Project](https://www.theodinproject.com/courses/ruby-programming/lessons/oop)

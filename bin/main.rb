@@ -1,109 +1,71 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# This is the welcome page for the players
-puts ' Welcome to Tic Tac Toe'
-puts 'Please player one give us your name:'
-player1 = gets.chomp
-# The name of the first player is stored here
-puts 'Please player two give us your name:'
-player2 = gets.chomp
-puts "Please #{player1} choose between x or o"
-selection = gets.chomp.to_s
-# The name of the second player is stored here
-if selection == 'x'
-  puts "#{player1}, you are #{selection} for this game"
-  puts "#{player2}, you are o for this game"
-elsif selection == 'o'
-  puts "#{player1}, you are #{selection} for this game"
-  puts "#{player2}, you are x for this game"
-end
-# used selection to save whatever the value the first player chooses
-def board
-  puts
-  puts '1|2|3'
-  puts  '-----'
-  puts  '4|5|6'
-  puts  '-----'
-  puts  '7|8|9'
-end
-# method displaying the game interface, by asking the first player to choose a
-# move and the move value is saved as input and input2 for both players
-board
-puts "#{player1} its your turn to make a move"
-puts 'Choose move between 0 to 9'
-input = gets.chomp.to_i
-# we forced the two players to make sure they enter a valid value of 0-9
-until input.between?(0, 9)
-  puts ' you did not choose correct move, choose again'
-  input = gets.chomp.to_i
+# rubocop:disable Layout/LineLength, Lint/RedundantCopDisableDirective,Layout/LineLength
 
-end
+require_relative('../lib/board.rb')
+require_relative('../lib/player.rb')
+require_relative('../lib/game.rb')
 
-puts "#{player2} it's your turn to make a move"
-puts 'Choose move between 0 to 9'
-input2 = gets.chomp.to_i
+puts '--------Welcome to Tic-Tac-Toe game--------'
+puts 'Please choose a name and favourite Symbol to use.'
 
-until input2.between?(0, 9)
-  puts ' you did not choose correct move, ch oose again'
-  input2 = gets.chomp.to_i
+puts 'First player, please enter your name '
+player1 = gets.chomp.capitalize
+letter_one = ''
+until %w[X O].include?(letter_one)
+  puts "#{player1}, please choose between X and O to play with."
+  letter_one = gets.chomp.upcase
 end
-# game logic is showed below, whatever input from the players is cehcked
-# whether it's a winning, draw, or lost move.
-count = 0
-loop do
-  until game_over
-    turn
-    if won
-      winner == 'x' || winner == 'o'
-      puts "Congrats you won #{winner}"
-    elsif draw
-      puts 'its a draw'
+letter_two = letter_one == 'O' ? 'X' : 'O'
+player_one = Player.new(player1, letter_one)
+
+puts 'Second player\'s name'
+player2 = gets.chomp.capitalize
+while player1 == player2
+  puts '#The name {player1} already exists.'
+  puts 'Second player\'s name'
+  player2 = gets.chomp.capitalize
+end
+puts "#{player1}, you are #{letter_one}."
+puts "#{player2}, your are #{letter_two}."
+puts ''
+
+player_two = Player.new(player2, letter_two)
+players = { player_one.player_name => player_one.symbol, player_two.player_name => player_two.symbol }
+
+game = Game.new(players)
+play_again = true
+while play_again
+  game.shuffle_players
+  puts game.message_instance.first_player(game.current_player)
+  loop do
+    puts game.message_instance.give_msg(game.display_game_board)
+    puts game.message_instance.move_msg_to(game.current_player)
+    pos = gets.chomp.to_i
+    until game.board_instance.valid_move?(pos)
+      puts game.display_game_board
+      puts game.message_instance.invalid_move_msg
+      puts "#{game.current_player}, make a valid move."
+      pos = gets.chomp.to_i
     end
-    count = +1
-    break if won || draw
+    game.board_instance.update_board(game.players[game.current_player], pos)
+    if game.won?(game.players[game.current_player])
+      puts game.message_instance.give_msg(game.display_game_board)
+      puts game.message_instance.win_msg(game.current_player)
+      break
+    elsif game.draw?
+      puts game.message_instance.give_msg(game.display_game_board)
+      puts game.message_instance.draw_msg
+      break
+    else
+      game.switch_players
+    end
   end
+  game.reset
+  puts 'Would you like to play again? (yes(y) or no(n))'
+  play_again = gets.chomp.downcase
+  play_again = %w[yes y].include?(play_again) ? true : false
 end
-
-# def move(board_arr, arg,current_ player)
-#   board[arg]=current_player
-#
-# end
-#
-# def count
-#   result=0
-#   board_arr.each do |n|
-#     if n=="x" || n=="o"
-#       result = result+1
-#     end
-#   end
-#   result
-# end
-# def current_player
-# if count(board_arr) % 2==0
-#   puts "x"
-# elsif
-#   puts "o"
-# end
-# end
-#
-# end
-# def valid(arg)
-#   if arg.between(1..9)
-#     return true
-#   else
-#     return false
-# end
-# def over(board_arr)
-#   if full(board_arr) || won(board_arr) || draw(board_arr)
-#     return true
-#     puts "game over"
-#   end
-#
-#  end
-#
-#   def board_full(board_arr)
-#     board_arr.all? do |n|
-#       n=="x" || n=="o"
-#   end
-#   end
+puts 'Thanks for playing this game.'
+# rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective,Layout/LineLength

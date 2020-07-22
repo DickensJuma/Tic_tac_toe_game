@@ -25,8 +25,8 @@ class Board
     draw_board
   end
 
-  def update_board(marker, pos)
-    @board[pos] = marker
+  def update_board(symbol, pos)
+    @board[pos] = symbol
   end
 
   def win_comb
@@ -43,7 +43,7 @@ class Board
   end
 
   def position_taken?(index)
-    true if board[index] == 'X' || board[index] == 'O'
+    @board[index].is_a?(String)
   end
 
   def in_range?(index)

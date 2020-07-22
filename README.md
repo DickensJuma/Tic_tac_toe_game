@@ -1,17 +1,45 @@
-# Tic Tac Toe
 
-## About This Project
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
 
- > This is a mini game called Tic Tac Toe
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://github.com/DickensJuma/Tic_tac_toe_game">
+    <img src="images/microverse.png" alt="Logo" width="80" height="80">
+  </a>
+
+  <h3 align="center"> Tic Tac Toe</h3>
+
+  <p align="center">
+     
+
+ > A quick classic mini game to play by command line.
 
 - The aim of the project is to learn and apply object oriented programming concepts.
 The project specifications can be seen in [Odin Project](https://www.theodinproject.com/courses/ruby-programming/lessons/oop)
+    <br />
+    <a href="https://github.com/DickensJuma/Tic_tac_toe_game"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/DickensJuma/Tic_tac_toe_game">Local Demo</a>
+    ·
+    <a href="https://github.com/DickensJuma/Tic_tac_toe_game/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/DickensJuma/Tic_tac_toe_game/issues">Request Feature</a>
+  </p>
+</p>
+
+
 
 ## Content
 
 - [About this Project](#about-this-project)
 - [Built With](#built-with)
-- [Live Demo](#live-demo)
+- [Rules](#rules)
+- [Features](#features)
 - [Quick Start](#quick-start)
 - [Dependencies](#dependencies)
 - [Contributing](#contributing)
@@ -19,38 +47,42 @@ The project specifications can be seen in [Odin Project](https://www.theodinproj
 - [Author](#author)
 - [License](#license)
 
-## Game rules
+## ScreenShot
+[![Product Name Screen Shot][product-screenshot]](images/tic1.png)
+[![Product Name Screen Shot][product-screenshot]](images/tic.png)
 
+## Built
+- we created the project dir
+- creaded  folder lib, bin and images
+- we created main.rb inside the bin folder
+- we created the game logics on foulder lib 
+- you execute command bin/main.rb and the game start
+
+## Rules
 - Two players game
 - Each player draw X or O alternately on board
 - The game ends when someone gets 3 marks in a row
 - The row can be vertical, horizontal or diagonal
+Requirements
 
-<ul>
-  <h3>Features</h3>
-  <li>Get a valid user input</li>
-  <li>Display board after each move</li>
-  <li>End game if someone wins</li>
-  <li>End game if board becomes full</li>
-</ul>
+## Features
+- Get a valid user input
+- Display board after each move
+- End game if someone wins
+- End game if board becomes full
 
 ## Built With
-
-- Ruby 2.6.5
-- VScode
 - Rubocop (Linter) with Stickler (CI Tool)
+- Ruby 2.6.6
+- VScode
 - Git (with Gitflow),
-
-## Live Demo
-
-You can play the live demo using this link: [Run on Repl.it](https://repl.it/@haraphat01/Tictactoegame#bin/main.rb)
 
 ## Quick Start
 
 ### Get a local copy with
 
 ```js
-git clone https://github.com/DickensJuma/Tic_tac_toe_game/pull/5
+git clone https://github.com/DickensJuma/Tic_tac_toe_game.git
 
 ```
 
@@ -86,16 +118,13 @@ Ruby 2.5.5
 
 Contributions, issues and feature requests are welcome!
 
-You can do it on [issues page](https://github.com/DickensJuma/Tic_tac_toe_game/issues).
+You can do it on [issues page](https://github.com/DickensJuma/tic_tac_toe_game/issues).
 
 ## Acknowledgments
 
 - [Odin Project](https://www.theodinproject.com/courses/ruby-programming/lessons/oop)
 - A special thanks for the code reviewers.
-## Acknowledgments
-
-- [Odin Project](https://www.theodinproject.com/courses/ruby-programming/lessons/oop)
-- A special thanks for the code reviewers.
+- Creative Commons
 
 ## Author
 
@@ -111,7 +140,22 @@ You can do it on [issues page](https://github.com/DickensJuma/Tic_tac_toe_game/i
 - Linkedin: [arafat-akata](https://www.linkedin.com/in/arafat-akata/)
 
 
-## License
+## Show your support
 
-- Creative Commons
+Give a ⭐️ if you like this project!
+
+[contributors-shield]: https://img.shields.io/github/contributors/DickensJuma/Tic_tac_toe_game.svg?style=flat-square
+[contributors-url]: https://github.com/DickensJuma/Tic_tac_toe_game/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/DickensJuma/Tic_tac_toe_game.svg?style=flat-square
+[forks-url]: https://github.com/DickensJuma/Tic_tac_toe_game/network/members
+[stars-shield]: https://img.shields.io/github/stars/DickensJuma/Tic_tac_toe_game.svg?style=flat-square
+[stars-url]: https://github.com/DickensJuma/Tic_tac_toe_game/stargazers
+[issues-shield]: https://img.shields.io/github/issues/DickensJuma/Tic_tac_toe_game.svg?style=flat-square
+[issues-url]: https://github.com/DickensJuma/Tic_tac_toe_game/issues
+[product-screenshot]: images/tic1.png
+
+## 📝 License
+
+This project is [MIT](https://opensource.org/licenses/MIT) licensed.
+
 

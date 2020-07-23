@@ -5,6 +5,7 @@ require_relative '../lib/game.rb'
 describe Game do
   let(:player_one) { Player.new('arafat', 'X') }
   let(:player_two) { Player.new('dickens', 'O') }
+  let (:cycle_player) {%w[arafat dickens].shuffle}
   let(:players) do
     { player_one.player_name => player_one.symbol,
       player_two.player_name => player_two.symbol }
@@ -13,29 +14,29 @@ describe Game do
 
   context '#switch_players' do
     it 'returns true if the other player becomes current player and vice-versa' do
-      expect(game.switch_players).to eql(%w[dickens arafat])
+      expect(game.switch_players).to eql(cycle_player)
     end
   end
 
   context '#switch_players' do
     it 'returns false if the other player does not become current player and vice-versa' do
-      expect(game.switch_players).not_to eql(%w[dickens arafat])
+      expect(game.switch_players).not_to be (cycle_player.shuffle) 
     end
   end
 
   context '#display_game_board' do
-    let(:board_cell) { ['', 1, 2, 3, 4, 5, 6, 7, 8, 9] }
+    let(:board) { ['', 1, 2, 3, 4, 5, 6, 7, 8, 9] }
     let(:new_board) do
       "
-         |     |
-      #{board_cell[1]}  |  #{board_cell[2]}  |  #{board_cell[3]}
-    _____|_____|_____
-         |     |
-      #{board_cell[4]}  |  #{board_cell[5]}  |  #{board_cell[6]}
-    _____|_____|_____
-         |     |
-      #{board_cell[7]}  |  #{board_cell[8]}  |  #{board_cell[9]}
-         |     |
+
+      #{board[1]}  |  #{board[2]}  |  #{board[3]}
+
+
+      #{board[4]}  |  #{board[5]}  |  #{board[6]}
+
+
+      #{board[7]}  |  #{board[8]}  |  #{board[9]}
+
     "
     end
 
@@ -79,4 +80,3 @@ describe Game do
     end
   end
 end
-

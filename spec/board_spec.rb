@@ -1,31 +1,34 @@
 require_relative '../lib/game.rb'
 
 describe Board do
-  let(:board_cell) { ['', 1, 2, 3, 4, 5, 6, 7, 8, 9] }
+  let(:board) { ['', 1, 2, 3, 4, 5, 6, 7, 8, 9] }
   let(:game_board) { Board.new }
   let(:new_board) do
     "
-         |     |
-      #{board_cell[1]}  |  #{board_cell[2]}  |  #{board_cell[3]}
-    _____|_____|_____
-         |     |
-      #{board_cell[4]}  |  #{board_cell[5]}  |  #{board_cell[6]}
-    _____|_____|_____
-         |     |
-      #{board_cell[7]}  |  #{board_cell[8]}  |  #{board_cell[9]}
-         |     |
+
+      #{board[1]}  |  #{board[2]}  |  #{board[3]}
+
+
+      #{board[4]}  |  #{board[5]}  |  #{board[6]}
+
+
+      #{board[7]}  |  #{board[8]}  |  #{board[9]}
+
     "
   end
+
   let(:false_board) do
-    " #{board_cell[0]}
+    " 
+    
+    #{board[0]}
          |     |
-      #{board_cell[1]}  |  #{board_cell[2]}  |  #{board_cell[3]}
+      #{board[1]}  |  #{board[2]}  |  #{board[3]}
     _____|_____|_____
          |     |
-      #{board_cell[4]}  |  #{board_cell[5]}  |  #{board_cell[6]}
+      #{board[4]}  |  #{board[5]}  |  #{board[6]}
     _____|_____|_____
          |     |
-      #{board_cell[7]}  |  #{board_cell[8]}  |  #{board_cell[9]}
+      #{board[7]}  |  #{board[8]}  |  #{board[9]}
          |     |
     "
   end

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # rubocop:disable Metrics/BlockLength, Layout/TrailingEmptyLines
 
 require_relative '../lib/board.rb'

@@ -1,6 +1,4 @@
 #!/usr/bin/env ruby
-# frozen_string_literal: true
-
 # rubocop:disable Layout/LineLength, Lint/RedundantCopDisableDirective,Layout/LineLength
 
 require_relative('../lib/board.rb')

@@ -53,3 +53,5 @@ Style/HashTransformValues:
   Enabled: false
 Style/BlockComments: 
   Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false

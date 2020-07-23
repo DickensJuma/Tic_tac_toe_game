@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# rubocop:disable Metrics/BlockLength, Layout/TrailingEmptyLines
+
 require_relative '../lib/board.rb'
 require_relative '../lib/player.rb'
 require_relative '../lib/game.rb'
@@ -5,7 +9,7 @@ require_relative '../lib/game.rb'
 describe Game do
   let(:player_one) { Player.new('arafat', 'X') }
   let(:player_two) { Player.new('dickens', 'O') }
-  let (:cycle_player) {%w[arafat dickens].shuffle}
+  let(:cycle_player) { %w[arafat dickens].shuffle }
   let(:players) do
     { player_one.player_name => player_one.symbol,
       player_two.player_name => player_two.symbol }
@@ -20,7 +24,7 @@ describe Game do
 
   context '#switch_players' do
     it 'returns false if the other player does not become current player and vice-versa' do
-      expect(game.switch_players).not_to be (cycle_player.shuffle) 
+      expect(game.switch_players).not_to be cycle_player.shuffle
     end
   end
 
@@ -80,3 +84,5 @@ describe Game do
     end
   end
 end
+
+# rubocop:enable Metrics/BlockLength, Layout/TrailingEmptyLines

@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# rubocop:disable Metrics/BlockLength
+
 require_relative '../lib/game.rb'
 
 describe Board do
@@ -18,8 +22,8 @@ describe Board do
   end
 
   let(:false_board) do
-    " 
-    
+    "
+
     #{board[0]}
          |     |
       #{board[1]}  |  #{board[2]}  |  #{board[3]}
@@ -149,3 +153,5 @@ describe Board do
     end
   end
 end
+
+# rubocop:enable Metrics/BlockLength

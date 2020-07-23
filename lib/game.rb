@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 # rubocop:disable Style/Documentation,Layout/SpaceInsideArrayLiteralBrackets,Layout/LineLength, Layout/EmptyLineAfterMagicComment, Lint/MissingCopEnableDirective,Layout/LineLength, Lint/RedundantCopDisableDirective
 require_relative './board.rb'
 require_relative './message.rb'

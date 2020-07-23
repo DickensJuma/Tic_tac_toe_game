@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # rubocop:disbale Style/Documentation, Lint/RedundantCopEnableDirective
 class Player
   attr_reader :player_name, :symbol

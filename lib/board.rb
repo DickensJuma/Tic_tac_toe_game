@@ -49,5 +49,5 @@ class Board
 
   def valid_move?(index)
     in_range?(index) && !position_taken?(index)
- end
+  end
 end

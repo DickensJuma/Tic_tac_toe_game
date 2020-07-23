@@ -22,4 +22,4 @@ class Message
   def draw_msg
     'It\'s a DRAW.'
   end
-
+end

@@ -1,5 +1,3 @@
-# rubocop:disable Style/Documentation, Layout/DefEndAlignment,Lint/MissingCopEnableDirective
-# rubocop:disable Metrics/AbcSize
 class Board
   attr_accessor :board
   def initialize
@@ -53,4 +51,3 @@ class Board
     in_range?(index) && !position_taken?(index)
  end
 end
-# rubocop:enable Style/Documentation,Lint/MissingCopEnableDirective, Layout/DefEndAlignment

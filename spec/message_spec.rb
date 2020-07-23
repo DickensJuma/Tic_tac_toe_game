@@ -1,5 +1,3 @@
-# rubocop:disable Metrics/BlockLength
-
 require_relative '../lib/message.rb'
 
 describe Message do
@@ -42,5 +40,3 @@ describe Message do
     end
   end
 end
-
-# rubocop:enable Metrics/BlockLength

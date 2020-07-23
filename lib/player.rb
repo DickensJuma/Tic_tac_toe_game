@@ -1,4 +1,3 @@
-# rubocop:disbale Style/Documentation, Lint/RedundantCopEnableDirective
 class Player
   attr_reader :player_name, :symbol
   def initialize(player_name, symbol)
@@ -6,4 +5,3 @@ class Player
     @symbol = symbol
   end
 end
-# rubocop:enable

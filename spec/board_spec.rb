@@ -1,5 +1,3 @@
-# rubocop:disable Metrics/BlockLength
-
 require_relative '../lib/game.rb'
 
 describe Board do
@@ -151,5 +149,3 @@ describe Board do
     end
   end
 end
-
-# rubocop:enable Metrics/BlockLength

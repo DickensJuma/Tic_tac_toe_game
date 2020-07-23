@@ -1,5 +1,3 @@
-# rubocop:disable Metrics/BlockLength, Layout/TrailingEmptyLines
-
 require_relative '../lib/board.rb'
 require_relative '../lib/player.rb'
 require_relative '../lib/game.rb'
@@ -82,5 +80,3 @@ describe Game do
     end
   end
 end
-
-# rubocop:enable Metrics/BlockLength, Layout/TrailingEmptyLines

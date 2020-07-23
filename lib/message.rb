@@ -1,5 +1,3 @@
-# rubocop:disable Style/Documentation
-
 class Message
   def give_msg(msg)
     msg.to_s
@@ -24,5 +22,4 @@ class Message
   def draw_msg
     'It\'s a DRAW.'
   end
-end
-# rubocop:enable Style/Documentation
+

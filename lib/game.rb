@@ -2,22 +2,22 @@ require_relative './board.rb'
 require_relative './message.rb'
 
 class Game
-  attr_reader :players, :board_instance, :current_player, :other_player, :message_instance
+  attr_reader :players, :board_instance, :current_player, :next_player, :message_instance
   def initialize(players, board = Board.new, message = Message.new)
     @players = players
     @board_instance = board
     @message_instance = message
     @players_names = @players.keys
     @players_markers = @players.values
-    @current_player, @other_player = @players_names.shuffle
+    @current_player, @next_player = @players_names.shuffle
   end
 
   def shuffle_players
-    @current_player, @other_player = @players_names.shuffle
+    @current_player, @next_player = @players_names.shuffle
   end
 
   def switch_players
-    @current_player, @other_player = @other_player, @current_player
+    @current_player, @next_player = @next_player, @current_player
   end
 
   def display_game_board

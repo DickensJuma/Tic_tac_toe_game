@@ -13,13 +13,7 @@ describe Game do
 
   context '#switch_players' do
     it 'returns true if the other player becomes current player and vice-versa' do
-      expect(game.switch_players).to eql(%w[arafat dickens])
-    end
-  end
-
-  context '#switch_players' do
-    it 'returns false if the other player does not become current player and vice-versa' do
-      expect(game.switch_players).not_to eql(%w[arafat dickens])
+      expect(game.switch_players).not_to eql game.switch_players
     end
   end
 
@@ -45,21 +39,21 @@ describe Game do
   end
 
   context '#won?' do
-    it 'returns true for every win combination found' do
+    it 'for every win combination found returns true ' do
       game.board_instance.board = ['', 'X', 'O', 3, 4, 'X', 6, 7, 'O', 'X']
       expect(game.won?('X')).to eql(true)
     end
   end
 
   context '#won?' do
-    it 'returns true for every win combination found' do
+    it 'for every win combination found returns true ' do
       game.board_instance.board = ['', 'X', 'O', 3, 4, 'X', 6, 'X', 'O', 'O']
       expect(game.won?('X')).to eql(false)
     end
   end
 
   context '#draw?' do
-    it 'returns true if all positions on the board are occupied' do
+    it 'returns true if all positions on the board are taken' do
       game.board_instance.board = ['', 'X', 'O', 'X', 'O', 'O', 'X', 'O', 'O', 'X']
       expect(game.draw?).to eql(true)
     end
@@ -73,7 +67,7 @@ describe Game do
   end
 
   context '#reset' do
-    it 'returns true if the game board is reset for new game or replay' do
+    it 'if the game board is reset for new game or replay returns true ' do
       game.board_instance.board = ['', 'X', 'O', 'X', 'O', 'O', 'X', 'O', 'O', 'X']
       expect(game.reset).to eql(['', 1, 2, 3, 4, 5, 6, 7, 8, 9])
     end

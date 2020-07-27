@@ -1,7 +1,3 @@
-# frozen_string_literal: true
-
-# rubocop:disable Style/Documentation
-
 class Message
   def give_msg(msg)
     msg.to_s
@@ -27,4 +23,3 @@ class Message
     'It\'s a DRAW.'
   end
 end
-# rubocop:enable Style/Documentation

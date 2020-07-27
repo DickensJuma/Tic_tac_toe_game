@@ -1,6 +1,3 @@
-# frozen_string_literal: true
-# rubocop:disable Style/Documentation, Layout/DefEndAlignment,Lint/MissingCopEnableDirective, Layout/EmptyLineAfterMagicComment
-# rubocop:disable Metrics/AbcSize
 class Board
   attr_accessor :board
   def initialize
@@ -43,7 +40,7 @@ class Board
   end
 
   def position_taken?(index)
-    true if board[index] == 'X' || board[index] == 'O'
+    return true if @board[index] == 'X' || @board[index] == 'O'
   end
 
   def in_range?(index)
@@ -52,6 +49,5 @@ class Board
 
   def valid_move?(index)
     in_range?(index) && !position_taken?(index)
- end
+  end
 end
-# rubocop:enable Style/Documentation,Lint/MissingCopEnableDirective, Layout/DefEndAlignment,Layout/EmptyLineAfterMagicComment

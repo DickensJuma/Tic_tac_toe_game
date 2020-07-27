@@ -1,8 +1,4 @@
 #!/usr/bin/env ruby
-# frozen_string_literal: true
-
-# rubocop:disable Layout/LineLength, Lint/RedundantCopDisableDirective,Layout/LineLength
-
 require_relative('../lib/board.rb')
 require_relative('../lib/player.rb')
 require_relative('../lib/game.rb')
@@ -68,4 +64,3 @@ while play_again
   play_again = %w[yes y].include?(play_again) ? true : false
 end
 puts 'Thanks for playing this game.'
-# rubocop:enable Layout/LineLength, Lint/RedundantCopDisableDirective,Layout/LineLength

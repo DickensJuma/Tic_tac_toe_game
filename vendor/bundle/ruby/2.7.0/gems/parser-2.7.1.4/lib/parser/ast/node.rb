@@ -1,8 +1,5 @@
-# frozen_string_literal: true
-
 module Parser
   module AST
-
     ##
     # {Parser::AST::Node} contains information about a single AST node and its
     # child nodes. It extends the basic [AST::Node](http://rdoc.info/gems/ast/AST/Node)
@@ -35,6 +32,5 @@ module Parser
         end
       end
     end
-
   end
 end

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Parser
   # Context of parsing that is represented by a stack of scopes.
   #
@@ -41,7 +39,7 @@ module Parser
     end
 
     def class_definition_allowed?
-      def_index = stack.rindex { |item| [:def, :defs].include?(item) }
+      def_index = stack.rindex { |item| %i[def defs].include?(item) }
       sclass_index = stack.rindex(:sclass)
 
       def_index.nil? || (!sclass_index.nil? && sclass_index > def_index)

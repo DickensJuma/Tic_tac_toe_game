@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Represents a simplistic (non-contextual) change. Represents the removal or
 # addition of an element from either the old or the new sequenced
 # enumerable.
@@ -10,7 +8,7 @@ class Diff::LCS::Change
   # (no change), '!' (changed), '<' (tail changes from first sequence), or
   # '>' (tail changes from second sequence). The last two ('<>') are only
   # found with Diff::LCS::diff and Diff::LCS::sdiff.
-  VALID_ACTIONS = %w(+ - = ! > <).freeze
+  VALID_ACTIONS = %w[+ - = ! > <].freeze
 
   def self.valid_action?(action)
     VALID_ACTIONS.include? action
@@ -27,8 +25,8 @@ class Diff::LCS::Change
   def initialize(*args)
     @action, @position, @element = *args
 
-    fail "Invalid Change Action '#{@action}'" unless Diff::LCS::Change.valid_action?(@action)
-    fail 'Invalid Position Type' unless @position.kind_of? IntClass
+    raise "Invalid Change Action '#{@action}'" unless Diff::LCS::Change.valid_action?(@action)
+    raise 'Invalid Position Type' unless @position.is_a? IntClass
   end
 
   def inspect(*_args)
@@ -49,7 +47,7 @@ class Diff::LCS::Change
     when 3
       Diff::LCS::Change.new(*(arr[0...3]))
     else
-      fail 'Invalid change array format provided.'
+      raise 'Invalid change array format provided.'
     end
   end
 
@@ -114,9 +112,9 @@ class Diff::LCS::ContextChange < Diff::LCS::Change
   def initialize(*args)
     @action, @old_position, @old_element, @new_position, @new_element = *args
 
-    fail "Invalid Change Action '#{@action}'" unless Diff::LCS::Change.valid_action?(@action)
-    fail 'Invalid (Old) Position Type' unless @old_position.nil? or @old_position.kind_of? IntClass
-    fail 'Invalid (New) Position Type' unless @new_position.nil? or @new_position.kind_of? IntClass
+    raise "Invalid Change Action '#{@action}'" unless Diff::LCS::Change.valid_action?(@action)
+    raise 'Invalid (Old) Position Type' unless @old_position.nil? or @old_position.is_a? IntClass
+    raise 'Invalid (New) Position Type' unless @new_position.nil? or @new_position.is_a? IntClass
   end
 
   def to_a

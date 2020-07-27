@@ -1,6 +1,4 @@
 #! /usr/bin/env ruby -w
-# frozen_string_literal: true
-
 require 'diff/lcs'
 require 'diff/lcs/htmldiff'
 
@@ -11,15 +9,15 @@ rescue LoadError
 end
 
 if ARGV.size < 2 or ARGV.size > 3
-  warn "usage: #{File.basename($0)} old new [output.html]"
-  warn "       #{File.basename($0)} old new > output.html"
+  warn "usage: #{File.basename($PROGRAM_NAME)} old new [output.html]"
+  warn "       #{File.basename($PROGRAM_NAME)} old new > output.html"
   exit 127
 end
 
-left = IO.read(ARGV[0]).split($/)
-right = IO.read(ARGV[1]).split($/)
+left = IO.read(ARGV[0]).split($INPUT_RECORD_SEPARATOR)
+right = IO.read(ARGV[1]).split($INPUT_RECORD_SEPARATOR)
 
-options = { :title => "diff #{ARGV[0]} #{ARGV[1]}" }
+options = { title: "diff #{ARGV[0]} #{ARGV[1]}" }
 
 htmldiff = Diff::LCS::HTMLDiff.new(left, right, options)
 

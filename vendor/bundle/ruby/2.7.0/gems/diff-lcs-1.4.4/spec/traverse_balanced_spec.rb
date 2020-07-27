@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'spec_helper'
 
 describe 'Diff::LCS.traverse_balanced' do
@@ -43,7 +41,7 @@ describe 'Diff::LCS.traverse_balanced' do
   end
 
   describe 'identical array sequences %w(a b c)' do
-    s1 = s2 = %w(a b c)
+    s1 = s2 = %w[a b c]
 
     result = [
       ['=', 0, 0],
@@ -56,8 +54,8 @@ describe 'Diff::LCS.traverse_balanced' do
   end
 
   describe 'sequences %w(a b c) & %w(a x c)' do
-    s1 = %w(a b c)
-    s2 = %w(a x c)
+    s1 = %w[a b c]
+    s2 = %w[a x c]
 
     result = [
       ['=', 0, 0],
@@ -70,8 +68,8 @@ describe 'Diff::LCS.traverse_balanced' do
   end
 
   describe 'sequences %w(a x y c) & %w(a v w c)' do
-    s1 = %w(a x y c)
-    s2 = %w(a v w c)
+    s1 = %w[a x y c]
+    s2 = %w[a v w c]
 
     result = [
       ['=', 0, 0],
@@ -85,8 +83,8 @@ describe 'Diff::LCS.traverse_balanced' do
   end
 
   describe 'sequences %w(x y c) & %w(v w c)' do
-    s1 = %w(x y c)
-    s2 = %w(v w c)
+    s1 = %w[x y c]
+    s2 = %w[v w c]
     result = [
       ['!', 0, 0],
       ['!', 1, 1],
@@ -98,8 +96,8 @@ describe 'Diff::LCS.traverse_balanced' do
   end
 
   describe 'sequences %w(a x y z) & %w(b v w)' do
-    s1 = %w(a x y z)
-    s2 = %w(b v w)
+    s1 = %w[a x y z]
+    s2 = %w[b v w]
     result = [
       ['!', 0, 0],
       ['!', 1, 1],
@@ -112,8 +110,8 @@ describe 'Diff::LCS.traverse_balanced' do
   end
 
   describe 'sequences %w(a z) & %w(a)' do
-    s1 = %w(a z)
-    s2 = %w(a)
+    s1 = %w[a z]
+    s2 = %w[a]
     result = [
       ['=', 0, 0],
       ['<', 1, 1]
@@ -124,8 +122,8 @@ describe 'Diff::LCS.traverse_balanced' do
   end
 
   describe 'sequences %w(z a) & %w(a)' do
-    s1 = %w(z a)
-    s2 = %w(a)
+    s1 = %w[z a]
+    s2 = %w[a]
     result = [
       ['<', 0, 0],
       ['=', 1, 0]
@@ -136,8 +134,8 @@ describe 'Diff::LCS.traverse_balanced' do
   end
 
   describe 'sequences %w(a b c) & %w(x y z)' do
-    s1 = %w(a b c)
-    s2 = %w(x y z)
+    s1 = %w[a b c]
+    s2 = %w[x y z]
     result = [
       ['!', 0, 0],
       ['!', 1, 1],
@@ -149,7 +147,7 @@ describe 'Diff::LCS.traverse_balanced' do
   end
 
   describe 'sequences %w(abcd efgh ijkl mnoopqrstuvwxyz) & []' do
-    s1 = %w(abcd efgh ijkl mnopqrstuvwxyz)
+    s1 = %w[abcd efgh ijkl mnopqrstuvwxyz]
     s2 = []
     result = [
       ['<', 0, 0],
@@ -273,16 +271,16 @@ describe 'Diff::LCS.traverse_balanced' do
     s1 = 'abcd efgh ijkl mnopqrstuvwxyz'
     s2 = ''
     result = [
-      ['<',  0, 0],
-      ['<',  1, 0],
-      ['<',  2, 0],
-      ['<',  3, 0],
-      ['<',  4, 0],
-      ['<',  5, 0],
-      ['<',  6, 0],
-      ['<',  7, 0],
-      ['<',  8, 0],
-      ['<',  9, 0],
+      ['<', 0, 0],
+      ['<', 1, 0],
+      ['<', 2, 0],
+      ['<', 3, 0],
+      ['<', 4, 0],
+      ['<', 5, 0],
+      ['<', 6, 0],
+      ['<', 7, 0],
+      ['<', 8, 0],
+      ['<', 9, 0],
       ['<', 10, 0],
       ['<', 11, 0],
       ['<', 12, 0],

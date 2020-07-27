@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'spec_helper'
 require 'diff/lcs/hunk'
 
@@ -41,13 +39,13 @@ describe 'Diff::LCS Issues' do
     end
 
     describe 'array' do
-      it_has_behavior 'handles simple diffs', %w(a X), %w(b X a X), [
+      it_has_behavior 'handles simple diffs', %w[a X], %w[b X a X], [
         [
           ['+', 0, 'b'],
           ['+', 1, 'X']
         ]
       ]
-      it_has_behavior 'handles simple diffs', %w(b X a X), %w(a X), [
+      it_has_behavior 'handles simple diffs', %w[b X a X], %w[a X], [
         [
           ['-', 0, 'b'],
           ['-', 1, 'X']
@@ -58,40 +56,40 @@ describe 'Diff::LCS Issues' do
 
   describe 'issue #57' do
     it 'should fail with a correct error' do
-      expect {
-        actual = { :category => 'app.rack.request' }
-        expected = { :category => 'rack.middleware', :title => 'Anonymous Middleware' }
+      expect do
+        actual = { category: 'app.rack.request' }
+        expected = { category: 'rack.middleware', title: 'Anonymous Middleware' }
         expect(actual).to eq(expected)
-      }.to raise_error(RSpec::Expectations::ExpectationNotMetError)
+      end.to raise_error(RSpec::Expectations::ExpectationNotMetError)
     end
   end
 
   describe 'issue #60' do
     it 'should produce unified output with correct context' do
-      old_data = <<-DATA_OLD.strip.split("\n").map(&:chomp)
-{
-  "name": "x",
-  "description": "hi"
-}
+      old_data = <<~DATA_OLD.strip.split("\n").map(&:chomp)
+        {
+          "name": "x",
+          "description": "hi"
+        }
       DATA_OLD
 
-      new_data = <<-DATA_NEW.strip.split("\n").map(&:chomp)
-{
-  "name": "x",
-  "description": "lo"
-}
+      new_data = <<~DATA_NEW.strip.split("\n").map(&:chomp)
+        {
+          "name": "x",
+          "description": "lo"
+        }
       DATA_NEW
 
       diff = ::Diff::LCS.diff(old_data, new_data)
       hunk = ::Diff::LCS::Hunk.new(old_data, new_data, diff.first, 3, 0)
 
-      expect(hunk.diff(:unified)).to eq(<<-EXPECTED.chomp)
-@@ -1,5 +1,5 @@
- {
-   "name": "x",
--  "description": "hi"
-+  "description": "lo"
- }
+      expect(hunk.diff(:unified)).to eq(<<~EXPECTED.chomp)
+        @@ -1,5 +1,5 @@
+         {
+           "name": "x",
+        -  "description": "hi"
+        +  "description": "lo"
+         }
       EXPECTED
     end
   end
@@ -133,21 +131,21 @@ describe 'Diff::LCS Issues' do
         'recipe[q::new]', 'recipe[r::new]'
       ]
 
-      expect(diff_lines(old_data, new_data)).to eq(<<-EODIFF)
-@@ -1,5 +1,4 @@
- recipe[a::default]
--recipe[b::default]
- recipe[c::default]
- recipe[d::default]
- recipe[e::default]
-@@ -12,3 +11,7 @@
- recipe[l::default]
- recipe[m::default]
- recipe[n::default]
-+recipe[o::new]
-+recipe[p::new]
-+recipe[q::new]
-+recipe[r::new]
+      expect(diff_lines(old_data, new_data)).to eq(<<~EODIFF)
+        @@ -1,5 +1,4 @@
+         recipe[a::default]
+        -recipe[b::default]
+         recipe[c::default]
+         recipe[d::default]
+         recipe[e::default]
+        @@ -12,3 +11,7 @@
+         recipe[l::default]
+         recipe[m::default]
+         recipe[n::default]
+        +recipe[o::new]
+        +recipe[p::new]
+        +recipe[q::new]
+        +recipe[r::new]
       EODIFF
     end
   end

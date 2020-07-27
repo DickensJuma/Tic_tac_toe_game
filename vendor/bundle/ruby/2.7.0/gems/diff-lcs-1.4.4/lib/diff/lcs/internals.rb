@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class << Diff::LCS
   def diff_traversal(method, seq1, seq2, callbacks, &block)
     callbacks = callbacks_for(callbacks)
@@ -13,7 +11,7 @@ class << Diff::LCS
 
     if block
       callbacks.diffs.map do |hunk|
-        if hunk.kind_of? Array
+        if hunk.is_a? Array
           hunk.map { |hunk_block| block[hunk_block] }
         else
           block[hunk]
@@ -63,8 +61,8 @@ class << Diff::LCS::Internals
     b_matches = position_hash(b, b_start..b_finish)
 
     thresh = []
-    links  = []
-    string = a.kind_of?(String)
+    links = []
+    string = a.is_a?(String)
 
     (a_start..a_finish).each do |i|
       ai = string ? a[i, 1] : a[i]
@@ -96,7 +94,7 @@ class << Diff::LCS::Internals
   # the object form of same) and detection of whether the patchset represents
   # changes to be made.
   def analyze_patchset(patchset, depth = 0)
-    fail 'Patchset too complex' if depth > 1
+    raise 'Patchset too complex' if depth > 1
 
     has_changes = false
     new_patchset = []
@@ -126,7 +124,7 @@ class << Diff::LCS::Internals
           new_patchset.concat(hunk)
         end
       else
-        fail ArgumentError, "Cannot normalise a hunk of class #{hunk.class}."
+        raise ArgumentError, "Cannot normalise a hunk of class #{hunk.class}."
       end
     end
 
@@ -141,7 +139,7 @@ class << Diff::LCS::Internals
   # Diff::LCS::Change as its source, as an array will cause the creation
   # of one of the above.
   def intuit_diff_direction(src, patchset, limit = nil)
-    string = src.kind_of?(String)
+    string = src.is_a?(String)
     count = left_match = left_miss = right_match = right_miss = 0
 
     patchset.each do |change|
@@ -231,7 +229,7 @@ class << Diff::LCS::Internals
           :patch
         end
       else
-        fail "The provided patchset does not appear to apply to the provided \
+        raise "The provided patchset does not appear to apply to the provided \
 enumerable as either source or destination value."
       end
     end
@@ -292,7 +290,7 @@ enumerable as either source or destination value."
   # positions it occupies in the Enumerable, optionally restricted to the
   # elements specified in the range of indexes specified by +interval+.
   def position_hash(enum, interval)
-    string = enum.kind_of?(String)
+    string = enum.is_a?(String)
     hash = Hash.new { |h, k| h[k] = [] }
     interval.each do |i|
       k = string ? enum[i, 1] : enum[i]

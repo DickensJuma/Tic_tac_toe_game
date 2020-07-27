@@ -36,7 +36,7 @@ module Parallel
       @exception =
         begin
           Marshal.dump(exception) && exception
-        rescue
+        rescue StandardError
           UndumpableException.new(exception)
         end
     end
@@ -46,7 +46,9 @@ module Parallel
     attr_reader :pid, :read, :write
     attr_accessor :thread
     def initialize(read, write, pid)
-      @read, @write, @pid = read, write, pid
+      @read = read
+      @write = write
+      @pid = pid
     end
 
     def stop
@@ -70,10 +72,11 @@ module Parallel
 
       result = begin
         Marshal.load(read)
-      rescue EOFError
-        raise DeadWorker
+               rescue EOFError
+                 raise DeadWorker
       end
       raise result.exception if ExceptionWrapper === result
+
       result
     end
 
@@ -101,14 +104,17 @@ module Parallel
         # - do not call lambda after it has returned Stop
         item, index = @mutex.synchronize do
           return if @stopped
+
           item = @lambda.call
           @stopped = (item == Parallel::Stop)
           return if @stopped
+
           [item, @index += 1]
         end
       else
         index = @mutex.synchronize { @index += 1 }
         return if index >= size
+
         item = @source[index]
       end
       [item, index]
@@ -140,7 +146,7 @@ module Parallel
     end
 
     def queue_wrapper(array)
-      array.respond_to?(:num_waiting) && array.respond_to?(:pop) && lambda { array.pop(false) }
+      array.respond_to?(:num_waiting) && array.respond_to?(:pop) && -> { array.pop(false) }
     end
   end
 
@@ -156,7 +162,7 @@ module Parallel
 
         if @to_be_killed.empty?
           old_interrupt = trap_interrupt(signal) do
-            $stderr.puts 'Parallel execution interrupted, exiting ...'
+            warn 'Parallel execution interrupted, exiting ...'
             @to_be_killed.flatten.each { |pid| kill(pid) }
           end
         end
@@ -183,7 +189,7 @@ module Parallel
 
         Signal.trap signal do
           yield
-          if !old || old == "DEFAULT"
+          if !old || old == 'DEFAULT'
             raise Interrupt
           else
             old.call
@@ -200,9 +206,9 @@ module Parallel
   end
 
   class << self
-    def in_threads(options={:count => 2})
+    def in_threads(options = { count: 2 })
       threads = []
-      count, _ = extract_count_from_options(options)
+      count, = extract_count_from_options(options)
 
       Thread.handle_interrupt(Exception => :never) do
         begin
@@ -221,25 +227,27 @@ module Parallel
     def in_processes(options = {}, &block)
       count, options = extract_count_from_options(options)
       count ||= processor_count
-      map(0...count, options.merge(:in_processes => count), &block)
+      map(0...count, options.merge(in_processes: count), &block)
     end
 
-    def each(array, options={}, &block)
-      map(array, options.merge(:preserve_results => false), &block)
+    def each(array, options = {}, &block)
+      map(array, options.merge(preserve_results: false), &block)
     end
 
     def any?(*args, &block)
-      raise "You must provide a block when calling #any?" if block.nil?
+      raise 'You must provide a block when calling #any?' if block.nil?
+
       !each(*args) { |*a| raise Parallel::Kill if block.call(*a) }
     end
 
     def all?(*args, &block)
-      raise "You must provide a block when calling #all?" if block.nil?
+      raise 'You must provide a block when calling #all?' if block.nil?
+
       !!each(*args) { |*a| raise Parallel::Kill unless block.call(*a) }
     end
 
-    def each_with_index(array, options={}, &block)
-      each(array, options.merge(:with_index => true), &block)
+    def each_with_index(array, options = {}, &block)
+      each(array, options.merge(with_index: true), &block)
     end
 
     def map(source, options = {}, &block)
@@ -247,8 +255,8 @@ module Parallel
       options[:mutex] = Mutex.new
 
       if options[:in_processes] && options[:in_threads]
-        raise ArgumentError.new("Please specify only one of `in_processes` or `in_threads`.")
-      elsif RUBY_PLATFORM =~ /java/ and not options[:in_processes]
+        raise ArgumentError, 'Please specify only one of `in_processes` or `in_threads`.'
+      elsif RUBY_PLATFORM =~ /java/ and !(options[:in_processes])
         method = :in_threads
         size = options[method] || processor_count
       elsif options[:in_threads]
@@ -259,7 +267,7 @@ module Parallel
         if Process.respond_to?(:fork)
           size = options[method] || processor_count
         else
-          warn "Process.fork is not supported by this Ruby"
+          warn 'Process.fork is not supported by this Ruby'
           size = 0
         end
       end
@@ -271,19 +279,19 @@ module Parallel
       add_progress_bar!(job_factory, options)
 
       results = if size == 0
-        work_direct(job_factory, options, &block)
-      elsif method == :in_threads
-        work_in_threads(job_factory, options.merge(:count => size), &block)
-      else
-        work_in_processes(job_factory, options.merge(:count => size), &block)
+                  work_direct(job_factory, options, &block)
+                elsif method == :in_threads
+                  work_in_threads(job_factory, options.merge(count: size), &block)
+                else
+                  work_in_processes(job_factory, options.merge(count: size), &block)
       end
       if results
         options[:return_results] ? results : source
       end
     end
 
-    def map_with_index(array, options={}, &block)
-      map(array, options.merge(:with_index => true), &block)
+    def map_with_index(array, options = {}, &block)
+      map(array, options.merge(with_index: true), &block)
     end
 
     def flat_map(*args, &block)
@@ -303,11 +311,12 @@ module Parallel
 
     def add_progress_bar!(job_factory, options)
       if progress_options = options[:progress]
-        raise "Progressbar can only be used with array like items" if job_factory.size == Float::INFINITY
+        raise 'Progressbar can only be used with array like items' if job_factory.size == Float::INFINITY
+
         require 'ruby-progressbar'
 
         if progress_options == true
-          progress_options = { title: "Progress" }
+          progress_options = { title: 'Progress' }
         elsif progress_options.respond_to? :to_str
           progress_options = { title: progress_options.to_str }
         end
@@ -337,8 +346,8 @@ module Parallel
             call_with_index(item, index, options, &block)
           end
         end
-      rescue
-        exception = $!
+      rescue StandardError
+        exception = $ERROR_INFO
       end
       handle_exception(exception, results)
     ensure
@@ -346,7 +355,8 @@ module Parallel
     end
 
     def work_in_threads(job_factory, options, &block)
-      raise "interrupt_signal is no longer supported for threads" if options[:interrupt_signal]
+      raise 'interrupt_signal is no longer supported for threads' if options[:interrupt_signal]
+
       results = []
       results_mutex = Mutex.new # arrays are not thread-safe on jRuby
       exception = nil
@@ -361,8 +371,8 @@ module Parallel
               call_with_index(item, index, options, &block)
             end
             results_mutex.synchronize { results[index] = result }
-          rescue
-            exception = $!
+          rescue StandardError
+            exception = $ERROR_INFO
           end
         end
       end
@@ -385,6 +395,7 @@ module Parallel
           begin
             loop do
               break if exception
+
               item, index = job_factory.next
               break unless index
 
@@ -403,7 +414,7 @@ module Parallel
                 exception = e
                 if Parallel::Kill === exception
                   (workers - [worker]).each do |w|
-                    w.thread.kill if w.thread
+                    w.thread&.kill
                     UserInterruptHandler.kill(w.pid)
                   end
                 end
@@ -470,11 +481,11 @@ module Parallel
         item, index = job_factory.unpack(data)
         result = begin
           call_with_index(item, index, options, &block)
-        # https://github.com/rspec/rspec-support/blob/673133cdd13b17077b3d88ece8d7380821f8d7dc/lib/rspec/support.rb#L132-L140
-        rescue NoMemoryError, SignalException, Interrupt, SystemExit
-          raise $!
-        rescue Exception
-          ExceptionWrapper.new($!)
+                 # https://github.com/rspec/rspec-support/blob/673133cdd13b17077b3d88ece8d7380821f8d7dc/lib/rspec/support.rb#L132-L140
+                 rescue NoMemoryError, SignalException, Interrupt, SystemExit
+                   raise $ERROR_INFO
+                 rescue Exception
+                   ExceptionWrapper.new($ERROR_INFO)
         end
         begin
           Marshal.dump(result, write)
@@ -487,6 +498,7 @@ module Parallel
     def handle_exception(exception, results)
       return nil if [Parallel::Break, Parallel::Kill].include? exception.class
       raise exception if exception
+
       results
     end
 

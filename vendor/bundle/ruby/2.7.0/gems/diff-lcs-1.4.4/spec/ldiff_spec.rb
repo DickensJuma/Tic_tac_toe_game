@@ -1,19 +1,17 @@
-# frozen_string_literal: true
-
 require 'spec_helper'
 
 RSpec.describe 'bin/ldiff' do
   include CaptureSubprocessIO
 
   fixtures = [
-    { :name => 'output.diff', :left => 'aX', :right => 'bXaX' },
-    { :name => 'output.diff.chef', :left => 'old-chef', :right => 'new-chef' },
-    { :name => 'output.diff.chef2', :left => 'old-chef2', :right => 'new-chef2' }
-  ].product([nil, '-e', '-f', '-c', '-u']).map { |(fixture, flag)|
+    { name: 'output.diff', left: 'aX', right: 'bXaX' },
+    { name: 'output.diff.chef', left: 'old-chef', right: 'new-chef' },
+    { name: 'output.diff.chef2', left: 'old-chef2', right: 'new-chef2' }
+  ].product([nil, '-e', '-f', '-c', '-u']).map do |(fixture, flag)|
     fixture = fixture.dup
     fixture[:flag] = flag
     fixture
-  }
+  end
 
   def self.test_ldiff(fixture)
     desc = [

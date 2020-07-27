@@ -1,25 +1,26 @@
 #!/usr/bin/env ruby
 
-title = "ruby #{ARGV*" "}"
-$0    = ARGV.shift
+title = "ruby #{ARGV * ' '}"
+$0 = ARGV.shift
 Process.setproctitle(title) if Process.methods.include?(:setproctitle)
 
 require 'rubygems'
-begin
-  require 'executable-hooks/hooks'
-  Gem::ExecutableHooks.run($0)
-rescue LoadError
-  warn "unable to load executable-hooks/hooks" if ENV.key?('ExecutableHooks_DEBUG')
-end unless $0.end_with?('/executable-hooks-uninstaller')
+unless $PROGRAM_NAME.end_with?('/executable-hooks-uninstaller')
+  begin
+    require 'executable-hooks/hooks'
+    Gem::ExecutableHooks.run($PROGRAM_NAME)
+  rescue LoadError
+    warn 'unable to load executable-hooks/hooks' if ENV.key?('ExecutableHooks_DEBUG')
+  end
+end
 
-content = File.read($0)
+content = File.read($PROGRAM_NAME)
 
 if
   (index = content.index("\n#!ruby\n")) && index > 0
-then
   skipped_content = content.slice!(0..index)
   start_line = skipped_content.count("\n") + 1
-  eval content, binding, $0, start_line
+  eval content, binding, $PROGRAM_NAME, start_line
 else
-  eval content, binding, $0
+  eval content, binding, $PROGRAM_NAME
 end

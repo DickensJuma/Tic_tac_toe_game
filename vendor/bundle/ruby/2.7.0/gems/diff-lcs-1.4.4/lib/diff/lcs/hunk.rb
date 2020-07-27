@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'diff/lcs/block'
 
 # A Hunk is a group of Blocks which overlap because of the context surrounding
@@ -18,12 +16,10 @@ class Diff::LCS::Hunk
     @blocks = [Diff::LCS::Block.new(piece)]
 
     if @blocks[0].remove.empty? && @blocks[0].insert.empty?
-      fail "Cannot build a hunk from #{piece.inspect}; has no add or remove actions"
+      raise "Cannot build a hunk from #{piece.inspect}; has no add or remove actions"
     end
 
-    if String.method_defined?(:encoding)
-      @preferred_data_encoding = data_old.fetch(0, data_new.fetch(0, '')).encoding
-    end
+    @preferred_data_encoding = data_old.fetch(0, data_new.fetch(0, '')).encoding if String.method_defined?(:encoding)
 
     @data_old = data_old
     @data_new = data_new
@@ -32,7 +28,6 @@ class Diff::LCS::Hunk
     after += @blocks[0].diff_size
     @file_length_difference = after # The caller must get this manually
     @max_diff_size = @blocks.map { |e| e.diff_size.abs }.max
-
 
     # Save the start & end of each array. If the array doesn't exist (e.g.,
     # we're only adding items in this block), then figure out the line number
@@ -54,8 +49,8 @@ class Diff::LCS::Hunk
 
     @start_old = a1 || (b1 - before)
     @start_new = b1 || (a1 + before)
-    @end_old   = a2 || (b2 - after)
-    @end_new   = b2 || (a2 + after)
+    @end_old = a2 || (b2 - after)
+    @end_new = b2 || (a2 + after)
 
     self.flag_context = flag_context
   end
@@ -67,7 +62,7 @@ class Diff::LCS::Hunk
 
   # Change the "start" and "end" fields to note that context should be added
   # to this hunk.
-  attr_accessor :flag_context # rubocop:disable Layout/EmptyLinesAroundAttributeAccessor
+  attr_accessor :flag_context
   undef :flag_context=
   def flag_context=(context) #:nodoc: # rubocop:disable Lint/DuplicateMethods
     return if context.nil? or context.zero?
@@ -126,7 +121,7 @@ class Diff::LCS::Hunk
     when :reverse_ed, :ed_finish
       ed_diff(format, last)
     else
-      fail "Unknown diff format #{format}."
+      raise "Unknown diff format #{format}."
     end
   end
 
@@ -143,15 +138,11 @@ class Diff::LCS::Hunk
     s = encode("#{context_range(:old, ',')}#{OLD_DIFF_OP_ACTION[block.op]}#{context_range(:new, ',')}\n")
     # If removing anything, just print out all the remove lines in the hunk
     # which is just all the remove lines in the block.
-    unless block.remove.empty?
-      @data_old[@start_old..@end_old].each { |e| s << encode('< ') + e.chomp + encode("\n") }
-    end
+    @data_old[@start_old..@end_old].each { |e| s << encode('< ') + e.chomp + encode("\n") } unless block.remove.empty?
 
     s << encode("---\n") if block.op == '!'
 
-    unless block.insert.empty?
-      @data_new[@start_new..@end_new].each { |e| s << encode('> ') + e.chomp + encode("\n") }
-    end
+    @data_new[@start_new..@end_new].each { |e| s << encode('> ') + e.chomp + encode("\n") } unless block.insert.empty?
 
     s
   end
@@ -170,7 +161,10 @@ class Diff::LCS::Hunk
     # We remove +num_removed+ items. Insert blocks use +num_removed+
     # because their item numbers -- corresponding to positions in the NEW
     # file -- don't take removed items into account.
-    lo, hi, num_added, num_removed = @start_old, @end_old, 0, 0
+    lo = @start_old
+    hi = @end_old
+    num_added = 0
+    num_removed = 0
 
     outlist = @data_old[lo..hi].map { |e| String.new("#{encode(' ')}#{e.chomp}") }
 
@@ -183,7 +177,7 @@ class Diff::LCS::Hunk
 
     @blocks.each do |block|
       block.remove.each do |item|
-        op     = item.action.to_s # -
+        op = item.action.to_s # -
         offset = item.position - lo + num_added
         outlist[offset][0, 1] = encode(op)
         num_removed += 1
@@ -195,7 +189,7 @@ class Diff::LCS::Hunk
       end
 
       block.insert.each do |item|
-        op     = item.action.to_s # +
+        op = item.action.to_s # +
         offset = item.position - @start_new + num_removed
         outlist[offset, 0] = encode(op) + @data_new[item.position].chomp
         num_added += 1
@@ -222,7 +216,8 @@ class Diff::LCS::Hunk
 
     # Print out file 1 part for each block in context diff format if there
     # are any blocks that remove items
-    lo, hi = @start_old, @end_old
+    lo = @start_old
+    hi = @end_old
     removes = @blocks.reject { |e| e.remove.empty? }
 
     unless removes.empty?
@@ -235,16 +230,15 @@ class Diff::LCS::Hunk
           outlist[item.position - lo][0, 1] = encode(block.op) # - or !
         end
 
-        if last && block == last_block && old_missing_newline
-          outlist << encode('\\ No newline at end of file')
-        end
+        outlist << encode('\\ No newline at end of file') if last && block == last_block && old_missing_newline
       end
 
       s << outlist.join(encode("\n")) << encode("\n")
     end
 
     s << encode("--- #{r} ----\n")
-    lo, hi = @start_new, @end_new
+    lo = @start_new
+    hi = @end_new
     inserts = @blocks.reject { |e| e.insert.empty? }
 
     unless inserts.empty?
@@ -257,9 +251,7 @@ class Diff::LCS::Hunk
           outlist[item.position - lo][0, 1] = encode(block.op) # + or !
         end
 
-        if last && block == last_block && new_missing_newline
-          outlist << encode('\\ No newline at end of file')
-        end
+        outlist << encode('\\ No newline at end of file') if last && block == last_block && new_missing_newline
       end
       s << outlist.join(encode("\n"))
     end
@@ -293,9 +285,11 @@ class Diff::LCS::Hunk
   def context_range(mode, op, last = false)
     case mode
     when :old
-      s, e = (@start_old + 1), (@end_old + 1)
+      s = (@start_old + 1)
+      e = (@end_old + 1)
     when :new
-      s, e = (@start_new + 1), (@end_new + 1)
+      s = (@start_new + 1)
+      e = (@end_new + 1)
     end
 
     e -= 1 if last
@@ -311,9 +305,11 @@ class Diff::LCS::Hunk
   def unified_range(mode, last)
     case mode
     when :old
-      s, e = (@start_old + 1), (@end_old + 1)
+      s = (@start_old + 1)
+      e = (@end_old + 1)
     when :new
-      s, e = (@start_new + 1), (@end_new + 1)
+      s = (@start_new + 1)
+      e = (@end_new + 1)
     end
 
     length = e - s + (last ? 0 : 1)

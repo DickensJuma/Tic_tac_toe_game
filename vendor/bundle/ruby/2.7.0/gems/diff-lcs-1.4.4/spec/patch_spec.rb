@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'spec_helper'
 
 describe 'Diff::LCS.patch' do
@@ -61,9 +59,9 @@ describe 'Diff::LCS.patch' do
         it_has_behavior 'patch sequences correctly' do
           let(:s1) { seq1 }
           let(:s2) { seq2 }
-          let(:patch_set) {
+          let(:patch_set) do
             Diff::LCS.diff(seq1, seq2, Diff::LCS::ContextDiffCallbacks)
-          }
+          end
         end
       end
 
@@ -71,9 +69,9 @@ describe 'Diff::LCS.patch' do
         it_has_behavior 'patch sequences correctly' do
           let(:s1) { seq2 }
           let(:s2) { seq1 }
-          let(:patch_set) {
+          let(:patch_set) do
             Diff::LCS.diff(seq2, seq1, Diff::LCS::ContextDiffCallbacks)
-          }
+          end
         end
       end
     end
@@ -83,9 +81,9 @@ describe 'Diff::LCS.patch' do
         it_has_behavior 'patch sequences correctly' do
           let(:s1) { seq1 }
           let(:s2) { seq2 }
-          let(:patch_set) {
+          let(:patch_set) do
             Diff::LCS.diff(seq1, seq2, Diff::LCS::SDiffCallbacks)
-          }
+          end
         end
       end
 
@@ -93,9 +91,9 @@ describe 'Diff::LCS.patch' do
         it_has_behavior 'patch sequences correctly' do
           let(:s1) { seq2 }
           let(:s2) { seq1 }
-          let(:patch_set) {
+          let(:patch_set) do
             Diff::LCS.diff(seq2, seq1, Diff::LCS::SDiffCallbacks)
-          }
+          end
         end
       end
     end
@@ -117,9 +115,9 @@ describe 'Diff::LCS.patch' do
         it_has_behavior 'patch sequences correctly' do
           let(:s1) { seq1 }
           let(:s2) { seq2 }
-          let(:patch_set) {
+          let(:patch_set) do
             Diff::LCS.sdiff(seq1, seq2, Diff::LCS::DiffCallbacks)
-          }
+          end
         end
       end
 
@@ -127,9 +125,9 @@ describe 'Diff::LCS.patch' do
         it_has_behavior 'patch sequences correctly' do
           let(:s1) { seq2 }
           let(:s2) { seq1 }
-          let(:patch_set) {
+          let(:patch_set) do
             Diff::LCS.sdiff(seq2, seq1, Diff::LCS::DiffCallbacks)
-          }
+          end
         end
       end
     end
@@ -139,9 +137,9 @@ describe 'Diff::LCS.patch' do
         it_has_behavior 'patch sequences correctly' do
           let(:s1) { seq1 }
           let(:s2) { seq2 }
-          let(:patch_set) {
+          let(:patch_set) do
             Diff::LCS.sdiff(seq1, seq2, Diff::LCS::ContextDiffCallbacks)
-          }
+          end
         end
       end
 
@@ -149,9 +147,9 @@ describe 'Diff::LCS.patch' do
         it_has_behavior 'patch sequences correctly' do
           let(:s1) { seq2 }
           let(:s2) { seq1 }
-          let(:patch_set) {
+          let(:patch_set) do
             Diff::LCS.sdiff(seq2, seq1, Diff::LCS::ContextDiffCallbacks)
-          }
+          end
         end
       end
     end
@@ -181,8 +179,8 @@ describe 'Diff::LCS.patch' do
   # above.
   describe 'fix bug 891: patchsets do not contain the last equal part' do
     before :each do
-      @s1 = %w(a b c d   e f g h i j k) # rubocop:disable Layout/SpaceInsideArrayPercentLiteral
-      @s2 = %w(a b c d D e f g h i j k)
+      @s1 = %w[a b c d   e f g h i j k] # rubocop:disable Layout/SpaceInsideArrayPercentLiteral
+      @s2 = %w[a b c d D e f g h i j k]
     end
 
     describe 'using Diff::LCS.diff with default diff callbacks' do

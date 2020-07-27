@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-module Diff; end unless defined? Diff # rubocop:disable Style/Documentation
+module Diff; end unless defined? Diff
 
 # == How Diff Works (by Mark-Jason Dominus)
 #
@@ -49,13 +47,13 @@ module Diff; end unless defined? Diff # rubocop:disable Style/Documentation
 #          a x b y c z p d q
 #    a b c a x b y c z
 module Diff::LCS
-  VERSION = '1.4.4'
+  VERSION = '1.4.4'.freeze
 end
 
 require 'diff/lcs/callbacks'
 require 'diff/lcs/internals'
 
-module Diff::LCS # rubocop:disable Style/Documentation
+module Diff::LCS
   # Returns an Array containing the longest common subsequence(s) between
   # +self+ and +other+. See Diff::LCS#lcs.
   #
@@ -144,7 +142,7 @@ class << Diff::LCS
   def lcs(seq1, seq2, &block) #:yields seq1[i] for each matched:
     matches = Diff::LCS::Internals.lcs(seq1, seq2)
     ret = []
-    string = seq1.kind_of? String
+    string = seq1.is_a? String
     matches.each_with_index do |_e, i|
       next if matches[i].nil?
 
@@ -286,7 +284,7 @@ class << Diff::LCS
     matches = Diff::LCS::Internals.lcs(seq1, seq2)
 
     run_finished_a = run_finished_b = false
-    string = seq1.kind_of?(String)
+    string = seq1.is_a?(String)
 
     a_size = seq1.size
     b_size = seq2.size
@@ -478,7 +476,7 @@ class << Diff::LCS
     b_size = seq2.size
     ai = bj = mb = 0
     ma = -1
-    string = seq1.kind_of?(String)
+    string = seq1.is_a?(String)
 
     # Process all the lines in the match vector.
     loop do
@@ -577,8 +575,8 @@ class << Diff::LCS
   end
 
   PATCH_MAP = { #:nodoc:
-    :patch => { '+' => '+', '-' => '-', '!' => '!', '=' => '=' }.freeze,
-    :unpatch => { '+' => '-', '-' => '+', '!' => '!', '=' => '=' }.freeze
+    patch: { '+' => '+', '-' => '-', '!' => '!', '=' => '=' }.freeze,
+    unpatch: { '+' => '-', '-' => '+', '!' => '!', '=' => '=' }.freeze
   }.freeze
 
   # Applies a +patchset+ to the sequence +src+ according to the +direction+
@@ -627,7 +625,7 @@ class << Diff::LCS
 
     return src.respond_to?(:dup) ? src.dup : src unless has_changes
 
-    string = src.kind_of?(String)
+    string = src.is_a?(String)
     # Start with a new empty type of the source's class
     res = src.class.new
 

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rubygems'
 require 'pathname'
 
@@ -17,26 +15,26 @@ if ENV['COVERAGE']
 
   formatters = [SimpleCov::Formatter::HTMLFormatter]
 
-  require_do('simplecov-rcov') {
+  require_do('simplecov-rcov') do
     formatters << SimpleCov::Formatter::RcovFormatter
-  }
-  require_do('simplecov-vim/formatter') {
+  end
+  require_do('simplecov-vim/formatter') do
     formatters << SimpleCov::Formatter::VimFormatter
-  }
-  require_do('simplecov-sublime-ruby-coverage') {
+  end
+  require_do('simplecov-sublime-ruby-coverage') do
     formatters << SimpleCov::Formatter::SublimeRubyCoverageFormatter
-  }
+  end
 
   SimpleCov.start do
     formatter SimpleCov::Formatter::MultiFormatter[*formatters]
   end
 end
 
-file   = Pathname.new(__FILE__).expand_path
-path   = file.parent
+file = Pathname.new(__FILE__).expand_path
+path = file.parent
 parent = path.parent
 
-$:.unshift parent.join('lib')
+$LOAD_PATH.unshift parent.join('lib')
 
 module CaptureSubprocessIO
   def _synchronize
@@ -50,9 +48,11 @@ module CaptureSubprocessIO
   def _capture_subprocess_io
     require 'tempfile'
 
-    captured_stdout, captured_stderr = Tempfile.new('out'), Tempfile.new('err')
+    captured_stdout = Tempfile.new('out')
+    captured_stderr = Tempfile.new('err')
 
-    orig_stdout, orig_stderr = $stdout.dup, $stderr.dup
+    orig_stdout = $stdout.dup
+    orig_stderr = $stderr.dup
     $stdout.reopen captured_stdout
     $stderr.reopen captured_stderr
 
@@ -79,52 +79,52 @@ module Diff::LCS::SpecHelper
   end
 
   def hello_ary
-    %w(h e l l o)
+    %w[h e l l o]
   end
 
   def seq1
-    %w(a b c e h j l m n p)
+    %w[a b c e h j l m n p]
   end
 
   def skipped_seq1
-    %w(a h n p)
+    %w[a h n p]
   end
 
   def seq2
-    %w(b c d e f j k l m r s t)
+    %w[b c d e f j k l m r s t]
   end
 
   def skipped_seq2
-    %w(d f k r s t)
+    %w[d f k r s t]
   end
 
   def word_sequence
-    %w(abcd efgh ijkl mnopqrstuvwxyz)
+    %w[abcd efgh ijkl mnopqrstuvwxyz]
   end
 
   def correct_lcs
-    %w(b c e j l m)
+    %w[b c e j l m]
   end
 
   def correct_forward_diff
     [
       [
-        ['-',  0, 'a']
+        ['-', 0, 'a']
       ],
       [
-        ['+',  2, 'd']
+        ['+', 2, 'd']
       ],
       [
-        ['-',  4, 'h'],
-        ['+',  4, 'f']
+        ['-', 4, 'h'],
+        ['+', 4, 'f']
       ],
       [
-        ['+',  6, 'k']
+        ['+', 6, 'k']
       ],
       [
-        ['-',  8, 'n'],
-        ['-',  9, 'p'],
-        ['+',  9, 'r'],
+        ['-', 8, 'n'],
+        ['-', 9, 'p'],
+        ['+', 9, 'r'],
         ['+', 10, 's'],
         ['+', 11, 't']
       ]
@@ -134,24 +134,24 @@ module Diff::LCS::SpecHelper
   def correct_backward_diff
     [
       [
-        ['+',  0, 'a']
+        ['+', 0, 'a']
       ],
       [
-        ['-',  2, 'd']
+        ['-', 2, 'd']
       ],
       [
-        ['-',  4, 'f'],
-        ['+',  4, 'h']
+        ['-', 4, 'f'],
+        ['+', 4, 'h']
       ],
       [
-        ['-',  6, 'k']
+        ['-', 6, 'k']
       ],
       [
-        ['-',  9, 'r'],
+        ['-', 9, 'r'],
         ['-', 10, 's'],
-        ['+',  8, 'n'],
+        ['+', 8, 'n'],
         ['-', 11, 't'],
-        ['+',  9, 'p']
+        ['+', 9, 'p']
       ]
     ]
   end
@@ -175,14 +175,14 @@ module Diff::LCS::SpecHelper
   end
 
   def reverse_sdiff(forward_sdiff)
-    forward_sdiff.map { |line|
+    forward_sdiff.map do |line|
       line[1], line[2] = line[2], line[1]
       case line[0]
       when '-' then line[0] = '+'
       when '+' then line[0] = '-'
       end
       line
-    }
+    end
   end
 
   def change_diff(diff)
@@ -194,13 +194,13 @@ module Diff::LCS::SpecHelper
   end
 
   def format_diffs(diffs)
-    diffs.map { |e|
-      if e.kind_of?(Array)
+    diffs.map do |e|
+      if e.is_a?(Array)
         e.map { |f| f.to_a.join }.join(', ')
       else
         e.to_a.join
       end
-    }.join("\n")
+    end.join("\n")
   end
 
   def map_diffs(diffs, klass = Diff::LCS::ContextChange)
@@ -356,9 +356,9 @@ module Diff::LCS::SpecHelper
 
     matcher :correctly_map_sequence do |s1|
       match do |actual|
-        actual.each_with_index { |ee, ii|
+        actual.each_with_index do |ee, ii|
           expect(ee).to be_nil_or_match_values(ii, s1, @s2)
-        }
+        end
       end
 
       chain :to_other_sequence do |s2|
@@ -371,5 +371,5 @@ end
 RSpec.configure do |conf|
   conf.include Diff::LCS::SpecHelper
   conf.alias_it_should_behave_like_to :it_has_behavior, 'has behavior:'
-  conf.filter_run_excluding :broken => true
+  conf.filter_run_excluding broken: true
 end

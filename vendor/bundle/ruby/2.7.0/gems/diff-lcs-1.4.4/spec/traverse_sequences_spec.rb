@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'spec_helper'
 
 describe 'Diff::LCS.traverse_sequences' do
@@ -55,7 +53,7 @@ describe 'Diff::LCS.traverse_sequences' do
         expect(@callback.matched_b).to eq(hello.split(//))
       end
 
-      it 'has the correct skipped sequences with the left sequence', :only => true do
+      it 'has the correct skipped sequences with the left sequence', only: true do
         expect(@callback.discards_a).to be_empty
       end
 
